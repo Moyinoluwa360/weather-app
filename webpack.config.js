@@ -2,10 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: {
-    htmlManipulation: "./src/htmlManipulation.js",
-    index: "./src/index.js"
-  },
+  entry: "./src/index.js",
   mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({
