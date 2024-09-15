@@ -1,5 +1,1 @@
-function aa ()   {
-console.log("kdd")
-}
-
-aa()
+import "./style.css"
