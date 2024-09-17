@@ -6,22 +6,26 @@ async function getWeatherinfo(city){
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${apiKey}&contentType=json`)
     console.log("running")
     const responseJson = await response.json()
-    const filteredResult = responseJson.days
-    assignResults(filteredResult[0], filteredResult[1], filteredResult[2])
+    console.log(responseJson)
+    assignResults(city,responseJson)
 }
 
-getWeatherinfo("london")
+getWeatherinfo("nigeria")
 
-function assignResults(resultToday, resultTomorrow, resultNext7){
-    handleTodayDisplay(resultToday)
-    handleTomorrowDisplay(resultTomorrow)
-    handleNext7Display(resultNext7)
+function assignResults(city, result){
+    handleTodayDisplay(result.days[0])
+    handleTomorrowDisplay(result.days[1])
+    handleNext7Display(result.days[2])
+    handleHeadDisplay(city,result.description)
 }
+
+function handleHeadDisplay(city,description){
+    document.querySelector(".city-name").textContent = city.toUpperCase()
+    document.querySelector(".city-weather-condition").textContent = description  
+}  
 
 function handleTodayDisplay(resultToday){
     const today = document.querySelector(".today")
-    console.log(today.querySelector("span")) 
-    console.log(today.querySelector(".visibility"));
     today.querySelector(".high").textContent = resultToday.tempmax
     today.querySelector(".low").textContent = resultToday.tempmin
     today.querySelector(".prep").textContent = resultToday.precip
@@ -47,3 +51,21 @@ function handleNext7Display(resultNext7){
     next7.querySelector(".humid").textContent = resultNext7.humidity
     next7.querySelector(".visibility").textContent = resultNext7.visibility
 }
+
+const handleSearch = (()=>{
+    document.querySelector(".web-icon").addEventListener("click",search)
+})()
+
+function search(){
+    const input = document.querySelector("input")
+    if(input.value){
+        getWeatherinfo(input.value)
+    }
+    input.value = ""
+}
+
+document.querySelector("input").addEventListener("keydown",(e)=>{
+    if (e.key == "Enter"){
+        search()
+    }
+})
