@@ -4,8 +4,8 @@
     box-sizing: border-box;
 }
 body{
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 }
 img{
     height: 30px;
@@ -80,6 +80,7 @@ img{
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    flex-wrap: wrap;
 }
 .card{
     display: flex;
@@ -102,3 +103,14 @@ img{
     font-weight: lighter;
     color: #919faf;
 }
+
+@media (max-width: 800px) {
+    .cards{
+        gap:5px;
+    }
+    .card{
+        width: 30%;
+        margin-bottom: 10px;
+        height: 150px;
+    }
+  }
